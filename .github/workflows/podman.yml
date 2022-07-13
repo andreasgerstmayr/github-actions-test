@@ -17,7 +17,10 @@ jobs:
           echo sudo
           sudo bash -c export
 
-          cat <<EOF | sudo podman --log-level debug build -t test-container -f - .
+          echo sudo -i
+          sudo -i bash -c export
+
+          cat <<EOF | sudo -i podman --log-level debug build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
