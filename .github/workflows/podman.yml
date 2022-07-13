@@ -10,6 +10,10 @@ jobs:
         run: |
           podman version
           apt-cache policy podman
+
+          echo $DBUS_SESSION_BUS_ADDRESS
+          sudo bash -c 'echo $DBUS_SESSION_BUS_ADDRESS'
+
           cat <<EOF | sudo podman --log-level debug build -t test-container -f - .
           FROM fedora:36
           RUN echo test
