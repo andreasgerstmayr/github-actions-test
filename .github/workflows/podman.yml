@@ -3,13 +3,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  a:
-    runs-on: ubuntu-latest
+  ubuntu20sudo:
+    runs-on: ubuntu-20.04
     steps:
       - name: Create container
         run: |
           podman version
-          apt-cache policy podman
 
           echo regular user
           export
@@ -20,19 +19,52 @@ jobs:
           echo sudo -i
           sudo -i bash -c export
 
-          cat <<EOF | sudo -i podman build -t test-container -f - .
+          cat <<EOF | sudo podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
 
-  b:
-    runs-on: ubuntu-latest
+  ubuntu22sudo:
+    runs-on: ubuntu-22.04
     steps:
       - name: Create container
         run: |
           podman version
 
+          echo regular user
+          export
+
+          echo sudo
+          sudo bash -c export
+
+          echo sudo -i
+          sudo -i bash -c export
+
           cat <<EOF | sudo podman build -t test-container -f - .
+          FROM fedora:36
+          RUN echo test
+          EOF
+
+  ubuntu20sudoi:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Create container
+        run: |
+          podman version
+
+          cat <<EOF | sudo -i podman build -t test-container -f - .
+          FROM fedora:36
+          RUN echo test
+          EOF
+
+  ubuntu22sudoi:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create container
+        run: |
+          podman version
+
+          cat <<EOF | sudo -i podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
