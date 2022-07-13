@@ -8,9 +8,23 @@ jobs:
     steps:
       - name: Create container
         run: |
-          podman version
+          echo sudo su
+          sudo su -c 'export'
 
           cat <<EOF | sudo su -c 'podman build -t test-container -f - .'
+          FROM fedora:36
+          RUN echo test
+          EOF
+
+  b:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Create container
+        run: |
+          echo sudo -i
+          sudo -i bash -c export
+
+          cat <<EOF | sudo -i podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
