@@ -11,8 +11,11 @@ jobs:
           podman version
           apt-cache policy podman
 
+          echo regular user
           export
-          sudo export
+
+          echo sudo
+          sudo bash -c export
 
           cat <<EOF | sudo podman --log-level debug build -t test-container -f - .
           FROM fedora:36
