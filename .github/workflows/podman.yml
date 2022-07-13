@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu22sudo:
+  ubuntu22sudoU:
     runs-on: ubuntu-22.04
     steps:
       - name: Create container
@@ -21,6 +21,27 @@ jobs:
 
           unset XDG_RUNTIME_DIR
           cat <<EOF | sudo -E podman build -t test-container -f - .
+          FROM fedora:36
+          RUN echo test
+          EOF
+
+  ubuntu22sudo:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Create container
+        run: |
+          podman version
+
+          echo regular user
+          export
+
+          echo sudo
+          sudo bash -c export
+
+          echo sudo -i
+          sudo -i bash -c export
+
+          cat <<EOF | sudo -i podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
