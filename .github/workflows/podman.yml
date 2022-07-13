@@ -3,12 +3,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  a:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Create container
+        run: |
+          cat <<EOF | sudo -E podman build -t test-container -f - .
+          FROM fedora:36
+          RUN echo test
+          EOF
+
   b:
     runs-on: ubuntu-20.04
     steps:
       - name: Create container
         run: |
-          cat <<EOF | sudo -E XDG_RUNTIME_DIR=/run/user/0 podman build -t test-container -f - .
+          cat <<EOF | sudo -E XDG_RUNTIME_DIR= podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
