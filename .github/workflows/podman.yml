@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  bundle:
+  a:
     runs-on: ubuntu-latest
     steps:
       - name: Create container
@@ -24,6 +24,13 @@ jobs:
           FROM fedora:36
           RUN echo test
           EOF
+
+  b:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create container
+        run: |
+          podman version
 
           cat <<EOF | sudo podman build -t test-container -f - .
           FROM fedora:36
