@@ -19,7 +19,8 @@ jobs:
           echo sudo -i
           sudo -i bash -c export
 
-          cat <<EOF | sudo podman build -t test-container -f - .
+          unset XDG_RUNTIME_DIR
+          cat <<EOF | sudo -E podman build -t test-container -f - .
           FROM fedora:36
           RUN echo test
           EOF
