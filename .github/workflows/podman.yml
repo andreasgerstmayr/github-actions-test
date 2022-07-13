@@ -10,16 +10,6 @@ jobs:
         run: |
           podman version
 
-          echo regular user
-          export
-
-          echo sudo
-          sudo bash -c export
-
-          echo sudo -i
-          sudo -i bash -c export
-
-          unset XDG_RUNTIME_DIR
           cat <<EOF | sudo su -c 'podman build -t test-container -f - .'
           FROM fedora:36
           RUN echo test
